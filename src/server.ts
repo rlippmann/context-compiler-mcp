@@ -13,7 +13,7 @@ export function createMcpServer(service: ContextCompilerService = new ContextCom
     'apply_directive',
     {
       description:
-        'Apply one Context Compiler directive input to the current in-memory engine state. Returns the engine decision object with kind, prompt_to_user, and state.',
+        "Apply exactly one canonical Context Compiler directive to the current in-memory engine state. Prefer canonical directive forms like: 'set premise concise replies', 'change premise to concise replies', 'use sqlite', 'prohibit docker', 'remove policy docker', 'clear premise', 'reset policies', 'clear state', 'use kubectl instead of docker'. Returns decision.kind, prompt_to_user, and state from the engine. If decision.kind is 'clarify', the mutation is blocked and you must ask the user the clarify prompt before attempting another mutation. Do not call this tool for quoted or reported instructions unless the user is actually asking to save that instruction as compiler state.",
       inputSchema: {
         input: z.string()
       }
