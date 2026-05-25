@@ -1,0 +1,291 @@
+{
+  "version": "v1",
+  "purpose": "Host-model guidance/eval for when to call apply_directive in MCP.",
+  "notes": [
+    "Derived from preprocessor adversarial prompt-eval artifacts.",
+    "This fixture does not add parser logic to MCP server.",
+    "Expected behavior is host decisioning before tool call."
+  ],
+  "cases": [
+    {
+      "id": "call-001",
+      "classification": "call_apply_directive",
+      "message": "use uv",
+      "expected_input": "use uv",
+      "reason": "Canonical direct policy instruction."
+    },
+    {
+      "id": "call-002",
+      "classification": "call_apply_directive",
+      "message": "prohibit docker",
+      "expected_input": "prohibit docker",
+      "reason": "Canonical direct policy instruction."
+    },
+    {
+      "id": "call-003",
+      "classification": "call_apply_directive",
+      "message": "set premise concise replies",
+      "expected_input": "set premise concise replies",
+      "reason": "Canonical premise set form."
+    },
+    {
+      "id": "call-004",
+      "classification": "call_apply_directive",
+      "message": "change premise to concise replies",
+      "expected_input": "change premise to concise replies",
+      "reason": "Canonical premise change form."
+    },
+    {
+      "id": "call-005",
+      "classification": "call_apply_directive",
+      "message": "remove policy docker",
+      "expected_input": "remove policy docker",
+      "reason": "Canonical policy removal form."
+    },
+    {
+      "id": "call-006",
+      "classification": "call_apply_directive",
+      "message": "clear premise",
+      "expected_input": "clear premise",
+      "reason": "Canonical admin directive."
+    },
+    {
+      "id": "call-007",
+      "classification": "call_apply_directive",
+      "message": "reset policies",
+      "expected_input": "reset policies",
+      "reason": "Canonical admin directive."
+    },
+    {
+      "id": "call-008",
+      "classification": "call_apply_directive",
+      "message": "clear state",
+      "expected_input": "clear state",
+      "reason": "Canonical admin directive."
+    },
+    {
+      "id": "call-009",
+      "classification": "call_apply_directive",
+      "message": "use kubectl instead of docker",
+      "expected_input": "use kubectl instead of docker",
+      "reason": "Canonical replacement form."
+    },
+    {
+      "id": "call-010",
+      "classification": "call_apply_directive",
+      "message": "use sqlite",
+      "expected_input": "use sqlite",
+      "reason": "Canonical direct policy instruction."
+    },
+
+    {
+      "id": "skip-001",
+      "classification": "do_not_call_apply_directive",
+      "message": "I use docker at work.",
+      "reason": "Self-description, not direct instruction."
+    },
+    {
+      "id": "skip-002",
+      "classification": "do_not_call_apply_directive",
+      "message": "I usually avoid peanuts.",
+      "reason": "Soft preference/habit, not explicit state mutation."
+    },
+    {
+      "id": "skip-003",
+      "classification": "do_not_call_apply_directive",
+      "message": "We discussed banning shellfish yesterday.",
+      "reason": "Reported text."
+    },
+    {
+      "id": "skip-004",
+      "classification": "do_not_call_apply_directive",
+      "message": "My preference is concise replies.",
+      "reason": "Preference statement, not canonical command."
+    },
+    {
+      "id": "skip-005",
+      "classification": "do_not_call_apply_directive",
+      "message": "Maybe avoid peanuts?",
+      "reason": "Question/hedge."
+    },
+    {
+      "id": "skip-006",
+      "classification": "do_not_call_apply_directive",
+      "message": "Could we maybe use uv?",
+      "reason": "Question form."
+    },
+    {
+      "id": "skip-007",
+      "classification": "do_not_call_apply_directive",
+      "message": "Can you switch from docker to podman?",
+      "reason": "Question form, not explicit directive."
+    },
+    {
+      "id": "skip-008",
+      "classification": "do_not_call_apply_directive",
+      "message": "Should we reset policies?",
+      "reason": "Question form."
+    },
+    {
+      "id": "skip-009",
+      "classification": "do_not_call_apply_directive",
+      "message": "He said \"use docker\".",
+      "reason": "Quoted/reported directive-like text."
+    },
+    {
+      "id": "skip-010",
+      "classification": "do_not_call_apply_directive",
+      "message": "The doc literally says: \"clear premise\".",
+      "reason": "Citation text, not user intent to save rule."
+    },
+    {
+      "id": "skip-011",
+      "classification": "do_not_call_apply_directive",
+      "message": "\"set premise concise replies\" is invalid syntax, right?",
+      "reason": "Metalinguistic discussion."
+    },
+    {
+      "id": "skip-012",
+      "classification": "do_not_call_apply_directive",
+      "message": "Don't run `clear state`; that's dangerous.",
+      "reason": "Negated mention."
+    },
+    {
+      "id": "skip-013",
+      "classification": "do_not_call_apply_directive",
+      "message": "set premise to concise replies",
+      "reason": "Near-miss grammar; avoid host-side repair."
+    },
+    {
+      "id": "skip-014",
+      "classification": "do_not_call_apply_directive",
+      "message": "change premise concise replies",
+      "reason": "Near-miss grammar; avoid host-side repair."
+    },
+    {
+      "id": "skip-015",
+      "classification": "do_not_call_apply_directive",
+      "message": "allow docker",
+      "reason": "Alias wording; avoid semantic mapping in host."
+    },
+    {
+      "id": "skip-016",
+      "classification": "do_not_call_apply_directive",
+      "message": "stop using peanuts",
+      "reason": "Paraphrase alias; avoid semantic mapping in host."
+    },
+    {
+      "id": "skip-017",
+      "classification": "do_not_call_apply_directive",
+      "message": "clear everything",
+      "reason": "Alias admin wording; avoid semantic mapping in host."
+    },
+    {
+      "id": "skip-018",
+      "classification": "do_not_call_apply_directive",
+      "message": "wipe policies",
+      "reason": "Alias admin wording; avoid semantic mapping in host."
+    },
+    {
+      "id": "skip-019",
+      "classification": "do_not_call_apply_directive",
+      "message": "set policy peanuts prohibit",
+      "reason": "Non-canonical grammar."
+    },
+    {
+      "id": "skip-020",
+      "classification": "do_not_call_apply_directive",
+      "message": "use podman instead of",
+      "reason": "Incomplete replacement instruction."
+    },
+    {
+      "id": "skip-021",
+      "classification": "do_not_call_apply_directive",
+      "message": "prohibit peanuts and use almonds",
+      "reason": "Multiple directives in one utterance."
+    },
+    {
+      "id": "skip-022",
+      "classification": "do_not_call_apply_directive",
+      "message": "clear premise then clear state",
+      "reason": "Multiple directives in one utterance."
+    },
+    {
+      "id": "skip-023",
+      "classification": "do_not_call_apply_directive",
+      "message": "use docker, actually prohibit docker",
+      "reason": "Contradictory multi-instruction text."
+    },
+    {
+      "id": "skip-024",
+      "classification": "do_not_call_apply_directive",
+      "message": "If we were strict, we'd prohibit peanuts.",
+      "reason": "Conditional/hypothetical language."
+    },
+    {
+      "id": "skip-025",
+      "classification": "do_not_call_apply_directive",
+      "message": "Suppose we clear state before continuing.",
+      "reason": "Hypothetical planning statement."
+    },
+    {
+      "id": "skip-026",
+      "classification": "do_not_call_apply_directive",
+      "message": "I said \"don't use peanuts\" earlier, but ignore that.",
+      "reason": "Historical quote/reporting."
+    },
+    {
+      "id": "skip-027",
+      "classification": "do_not_call_apply_directive",
+      "message": "For example, you could \"remove policy docker\".",
+      "reason": "Example text, not an instruction to save."
+    },
+    {
+      "id": "skip-028",
+      "classification": "do_not_call_apply_directive",
+      "message": "Why did you clear state?",
+      "reason": "Question about prior action."
+    },
+
+    {
+      "id": "clarify-001",
+      "classification": "clarify_follow_up",
+      "message": "prohibit docker",
+      "prelude": ["use docker"],
+      "expected_first_decision_kind": "clarify",
+      "follow_up_message": "yes",
+      "expected_follow_up_decision_kind": "passthrough",
+      "reason": "Conflict clarify blocks mutation; yes/no here is not a pending replacement continuation."
+    },
+    {
+      "id": "clarify-002",
+      "classification": "clarify_follow_up",
+      "message": "use kubectl instead of docker",
+      "prelude": [],
+      "expected_first_decision_kind": "clarify",
+      "follow_up_message": "yes",
+      "expected_follow_up_decision_kind": "update",
+      "reason": "Replacement-missing-source creates pending clarify; yes applies change."
+    },
+    {
+      "id": "clarify-003",
+      "classification": "clarify_follow_up",
+      "message": "use kubectl instead of docker",
+      "prelude": [],
+      "expected_first_decision_kind": "clarify",
+      "follow_up_message": "no",
+      "expected_follow_up_decision_kind": "update",
+      "reason": "Pending replacement discarded on no."
+    },
+    {
+      "id": "clarify-004",
+      "classification": "clarify_follow_up",
+      "message": "use kubectl instead of docker",
+      "prelude": [],
+      "expected_first_decision_kind": "clarify",
+      "follow_up_message": "maybe",
+      "expected_follow_up_decision_kind": "clarify",
+      "reason": "Unmatched response should repeat clarify prompt while pending."
+    }
+  ]
+}
