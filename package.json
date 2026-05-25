@@ -1,9 +1,11 @@
 {
   "name": "@rlippmann/context-compiler-mcp",
   "version": "0.0.1",
-  "private": true,
   "description": "Local stdio MCP server for Context Compiler.",
   "type": "module",
+  "bin": {
+    "context-compiler-mcp": "dist/index.js"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
