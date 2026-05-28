@@ -20,7 +20,8 @@
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "eval:directive-generation": "node scripts/run-directive-generation-eval.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.5",

@@ -25,3 +25,6 @@ yarn-error.log*
 
 # npm pack artifacts
 rlippmann-context-compiler-*.tgz
+
+# generated eval reports
+tests/fixtures/directive-generation-eval.latest.json
